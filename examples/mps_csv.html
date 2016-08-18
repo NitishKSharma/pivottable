@@ -2,46 +2,144 @@
 <html>
     <head>
         <title>Pivot Demo</title>
+
+        <!--Bootstrap-->
+        <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap/latest/css/bootstrap.css" />
+
+
         <!-- external libs from cdnjs -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.1.2/papaparse.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
 
         <!-- PivotTable.js libs from ../dist -->
         <link rel="stylesheet" type="text/css" href="../dist/pivot.css">
-        <script type="text/javascript" src="../dist/pivot.js"></script>
+        
         <style>
             body {font-family: Verdana;}
+            .btn{
+                margin:3px;
+            }
+            .label-info{
+                margin:2px;
+            }
         </style>
         
+        <script type="text/javascript" src="../dist/pivot.js"></script>
+
         <!-- optional: mobile support with jqueryui-touch-punch -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
-        
-        <!-- for examples only! script to show code to user -->
-        <script type="text/javascript" src="show_code.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
     </head>
     <body>
+
+        <div class="table-responsive">
+            <div id="output" style="margin: 30px;"></div>
+        </div>
+
         <script type="text/javascript">
-    // This example loads the "Canadian Parliament 2012" 
-    // dataset from a CSV instead of from JSON.
 
-    $(function(){
-        Papa.parse("mps.csv", {
-            download: true,
-            complete: function(parsed){
-                $("#output").pivotUI(parsed.data, {
-                    rows: ["Province"], cols: ["Party"]
+           
+
+            // This example loads the "Canadian Parliament 2012" 
+            // dataset from a CSV instead of from JSON.
+
+            //------------------------------------------------------
+
+            //SCRIPT CHANGES
+
+            //This version of PivotTable (pivot.js) supports Bootstrap 3.x styling.  Simply update the variables as shown below
+            //The field names, columns and row sections of the PivotTable are styled via pivot_dialog_ok_btn_class
+
+            //Example:  
+            //for red buttons...
+            //pivot_dialog_ok_btn_class: "btn btn-danger" 
+
+            //for blue buttons...
+            //pivot_dialog_ok_btn_class: "btn btn-primary" 
+
+            //------------------------------------------------------
+
+            //To change the Select All button update the following variable
+            //pivot_table_li_btn_class
+
+            //for blue button...
+            //pivot_table_li_btn_class: "btn btn-primary" 
+
+            //------------------------------------------------------
+
+            //To change the Select None button update the following variable as shown below
+            //pivot_table_btn_class
+
+            //------------------------------------------------------
+
+            //To change the Selected Look when hovering over a button or when you select a button during a drag event update the following variable
+            //pivot_table_td_selcted_btn_class
+
+            //Example:  
+            //for gold background...
+            //pivot_table_td_selcted_btn_class: "btn btn-warning"
+
+            //------------------------------------------------------
+
+            //We also updated the styling of the bars that appear in the Table Bar Chart, Col Heatmap and Row Heatmap.  The values now take a rounded look.
+            //Have a look for the following comment in pivot.js to see the change...
+            //Nitish Sharma updated bar chart to Bootstrap 3 styling with rounded look, pivot_barchart_bar_class...Table Barchart color
+
+            //Example:
+            //for a light blue rounded look
+            //pivot_table_btn_class: "btn btn-info"
+
+            //In the Col and Row Heatmap views the btn class maintains the rounded look of the bar while the pivot.js heatmapper function modifies the bar colour (shades of red)
+
+            //CSS CHANGE IN THIS PAGE (mps_csv.html)
+            //To adjust the margin of the bar in a cell, adjust the style for the .btn class near the top of this page, currently set to 3px
+
+            //------------------------------------------------------
+
+            //CSS SYTLESHEET CHANGES: We made two changes to pivot.css
+            //We removed the following...
+
+            ///*Nitish Sharma the following is not required if you are using Boostrap styling */
+            ///*.pvtAxisContainer li span.pvtAttr {
+            //    -webkit-text-size-adjust: 100%;
+            //    border: 1px solid #DEDEDE;
+            //    padding: 2px 5px;
+            //    white-space:nowrap;
+            //    -webkit-border-radius: 5px;
+            //    -moz-border-radius: 5px;
+            //    border-radius: 5px;
+            //    background-color: #006dcc;
+            //    *background-color: #0044cc;
+            //    color: white;
+            //}*/
+
+            //We adjusted the border-radius of the bar for the Col and Row Heatmap views...
+
+            ///*Nitish Sharma added the following style that affects the Heatmap view, adding a Boostrap rounded style, taken from Bootstrap 3 .btn { settings */
+            //.pvtVal,.pvtTotal{
+            //    border-radius: 8px;
+            //}
+
+            //These modifications to PivotTable were last updated on August 16, 2016
+
+            //------------------------------------------------------
+                       
+
+            $(function(){
+                $.get("mps.csv", function(mps) {
+                    var input = $.csv.toArrays(mps);
+                    $("#output").pivotUI(input, {
+                        //rows: ["Party"],
+                        //cols: ["Province"],
+                        pivot_dialog_ok_btn_class: "btn btn-danger",
+                        pivot_table_btn_class: "btn btn-info",
+                        pivot_table_li_btn_class: "btn btn-primary",
+                        pivot_table_td_selcted_btn_class: "btn btn-warning"
+                    });
                 });
-            }
-        });
-     });
+             });
         </script>
-        <p><a href="index.html">&laquo; back to examples</a></p>
-
-        <p style="width: 800px"></p>
-
-        
-        <div id="output" style="margin: 30px;"></div>
 
     </body>
 </html>
