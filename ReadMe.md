@@ -13,7 +13,7 @@ PivotTable.js can be used with [Python/Jupyter](https://pypi.python.org/pypi/piv
 
 PivotTable.js' basic function is to enable data exploration and analysis by turning a data set into a summary table and then optionally adding a true 2-d drag'n'drop UI to allow a user to manipulate this summary table, turning it into a pivot table, very similar to the one found in older versions of Microsoft Excel with a bunch of extra developer-oriented features and some visualization effects. With [optional add-ons](https://github.com/nicolaskruchten/pivottable/wiki/Optional-Extra-Renderers), the summary table can be rendered as various kinds of charts, turning the pivot table into a pivot chart.
 
-# Pivottable.js with bootstrap styling
+# PivotTable (pivot.js) with bootstrap styling
 
 This is based on [Nicholas' pivottable.js] (https://github.com/nicolaskruchten/pivottable) but uses bootstrap styling. It uses variables on the html page to pass on the values to pivot.js
 Basically, we have just updated three files:
@@ -21,7 +21,7 @@ Basically, we have just updated three files:
 * pivot.css: new styling which is streamlined with bootstrap and other new stlyling attributes
 * mps_csv.html: the only example I've updated to show the new changes
 
-Our changes are live on mps_csv.html file which you can see by clicking on "pivotUI() with C3 chart renderers" example from the homepage. We've not tested with the other renderes so far but I am hopeful it will work with other renderers as well. For some it might require a little update.
+Our changes are live on mps_csv.html file which you can see by clicking on "pivotUI() with C3 chart renderers" example from the homepage. We've not tested with the other renderers so far but I am hopeful it will work with other renderers as well. For some it might require a little update.
 
 ## Screenshots
 
